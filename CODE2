@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+
+x = [-10, -15, -7, -12]
+y = ["Яблоки", "Бананы", "Апельсины", "Груши"]
+colors = ["blue", "green", "red", "purple"]
+
+fig, ax = plt.subplots()
+
+for idx, value in enumerate(x):
+    ax.bar(value, height=0.5, color=colors[idx])
+
+ax.set_xticks(x)
+ax.set_xticklabels(y)
+
+ax.set_title("Столбчатая диаграмма")
+
+ax.tick_params(axis='both', which='major', labelsize=12)
+
+plt.show()
