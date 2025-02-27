@@ -1,0 +1,90 @@
+1. Импорт библиотек
+python
+Copy
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import cm
+matplotlib.pyplot используется для создания графиков.
+
+numpy используется для работы с массивами и математическими операциями.
+
+cm (colormap) из matplotlib используется для задания цветовой карты.
+
+2. Настройка стиля графика
+python
+Copy
+plt.style.use('_mpl-gallery')
+Здесь задается стиль графика. _mpl-gallery — это один из встроенных стилей matplotlib, который делает график более визуально привлекательным.
+
+3. Создание данных для графика
+python
+Copy
+n_radii = 8
+n_angles = 36
+
+radii = np.linspace(0.125, 1.0, n_radii)
+angles = np.linspace(0, 4*np.pi, n_angles, endpoint=False)[..., np.newaxis]
+n_radii и n_angles задают количество точек по радиусу и углу соответственно.
+
+radii — это массив значений радиусов, равномерно распределенных от 0.125 до 1.0.
+
+angles — это массив значений углов, равномерно распределенных от 0 до 
+4
+π
+4π (два полных оборота). Параметр endpoint=False исключает конечную точку, чтобы избежать дублирования.
+
+4. Преобразование координат
+python
+Copy
+x = np.append(0, (radii*np.cos(angles)).flatten())
+y = np.append(0, (radii*np.sin(angles)).flatten())
+z = np.sin(-x*y)
+x и y вычисляются как декартовы координаты на основе полярных координат (radii и angles).
+
+np.cos(angles) и np.sin(angles) преобразуют углы в координаты.
+
+flatten() преобразует двумерный массив в одномерный.
+
+np.append(0, ...) добавляет точку в начало координат (0, 0).
+
+z вычисляется как функция от x и y: 
+z
+=
+sin
+⁡
+(
+−
+x
+⋅
+y
+)
+z=sin(−x⋅y). Это создает "волнообразную" поверхность.
+
+5. Создание 3D-графика
+python
+Copy
+fig, ax = plt.subplots(subplot_kw={'projection': '3d'})
+ax.plot_trisurf(x, y, z, vmin=z.min() * 2, cmap=cm.Blues)
+fig, ax = plt.subplots(subplot_kw={'projection': '3d'}) создает фигуру и 3D-оси.
+
+ax.plot_trisurf(x, y, z, ...) строит трехмерную поверхность на основе точек (x, y, z).
+
+vmin=z.min() * 2 задает минимальное значение для цветовой карты.
+
+cmap=cm.Blues задает синюю цветовую карту.
+
+6. Настройка осей
+python
+Copy
+ax.set(xticklabels=[],
+       yticklabels=[],
+       zticklabels=[])
+Здесь отключаются подписи на осях (xticklabels, yticklabels, zticklabels), чтобы график выглядел чище.
+
+7. Отображение графика
+python
+Copy
+plt.show()
+Эта команда отображает график в отдельном окне.
+
+
