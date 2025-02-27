@@ -1,0 +1,12 @@
+import pandas as pd
+
+df_excel = pd.read_excel('Книга1.xlsx')
+
+
+row_number = int(input("Введите номер строки (начиная с 0): "))
+
+if 0 <= row_number < len(df_excel):
+
+    print(df_excel.iloc[row_number])
+else:
+    print("Ошибка: такой строки не существует.")
